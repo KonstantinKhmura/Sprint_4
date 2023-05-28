@@ -5,13 +5,17 @@ import org.openqa.selenium.WebElement;
 
 public class OrderFirstForm {
     //задаю локаторы
-    private static final By nameFieldID = By.cssSelector("[placeholder='* Имя']");
-    private static final By sureNameFieldID = By.cssSelector("[placeholder='* Фамилия']");
-    private static final By addressFieldID = By.cssSelector("[placeholder='* Адрес: куда привезти заказ']");
-    private static final By stationFieldID = By.cssSelector("[placeholder='* Станция метро']");
-    private static final By dropdownOptionID = By.xpath("//div[contains(text()]");
-    private static final By phoneFieldID = By.cssSelector("[placeholder='* Телефон: на него позвонит курьер']");
-    private static final By nextButtonID = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
+    private static final By NAME_FIELD_ID = By.cssSelector("[placeholder='* Имя']");
+    private static final By SURE_NAME_FIELD_ID = By.cssSelector("[placeholder='* Фамилия']");
+    private static final By ADDRESS_FIELD_ID = By.cssSelector("[placeholder='* Адрес: куда привезти заказ']");
+    private static final By STATION_FIELD_ID = By.cssSelector("[placeholder='* Станция метро']");
+    private static final By PHONE_FIELD_ID = By.cssSelector("[placeholder='* Телефон: на него позвонит курьер'] ");
+    private static final By NEXT_BUTTON_ID = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
+    private final WebDriver webDriver;
+
+    public OrderFirstForm(WebDriver webDriver) {
+        this.webDriver = webDriver;
+    }
 
     public static By getUserStationId(String userStation){
         return By.xpath("//div[contains(text(), '" + userStation + "')]");
@@ -19,31 +23,31 @@ public class OrderFirstForm {
 
     //задаю методы к локаторам
 
-    public static void findNameFieldAndSendKeys(WebDriver webDriver, String name) {
-        WebElement nameField = webDriver.findElement(nameFieldID);
+    public void setName(String name) {
+        WebElement nameField = webDriver.findElement(NAME_FIELD_ID);
         nameField.sendKeys(name);
     }
-    public static void findSureNameFieldAndSendKeys(WebDriver webDriver, String sureName) {
-        WebElement sureNameField = webDriver.findElement(sureNameFieldID);
+    public void setSureName(String sureName) {
+        WebElement sureNameField = webDriver.findElement(SURE_NAME_FIELD_ID);
         sureNameField.sendKeys(sureName);
     }
-    public static void findAddressFieldAndSendKeys(WebDriver webDriver, String address) {
-        WebElement addressField = webDriver.findElement(addressFieldID);
+    public void setAddress(String address) {
+        WebElement addressField = webDriver.findElement(ADDRESS_FIELD_ID);
         addressField.sendKeys(address);
     }
-    public static void selectStation (WebDriver webDriver, String station){
-        WebElement stationField = webDriver.findElement(stationFieldID);
+    public void selectStation (String station){
+        WebElement stationField = webDriver.findElement(STATION_FIELD_ID);
         stationField.click();
         stationField.sendKeys(station);
         WebElement dropdownOption = webDriver.findElement(getUserStationId(station));
         dropdownOption.click();
     }
-    public static void findPhoneFieldAndSendKeys(WebDriver webDriver, String phone) {
-        WebElement phoneField = webDriver.findElement(phoneFieldID);
+    public void setPhone(String phone) {
+        WebElement phoneField = webDriver.findElement(PHONE_FIELD_ID);
         phoneField.sendKeys(phone);
     }
-    public static void findNextButtonAndClick(WebDriver webDriver) {
-        WebElement nextButton = webDriver.findElement(nextButtonID);
+    public void clickNextButton() {
+        WebElement nextButton = webDriver.findElement(NEXT_BUTTON_ID);
         nextButton.click();
     }
 

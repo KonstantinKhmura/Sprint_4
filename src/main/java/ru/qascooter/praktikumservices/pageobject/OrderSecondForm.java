@@ -7,43 +7,47 @@ import org.openqa.selenium.WebElement;
 
 public class OrderSecondForm {
     //задаю локаторы
-    private static final By deliveryDateFieldID = By.cssSelector("[placeholder='* Когда привезти самокат']");
-    private static final By rentTimeFieldID = By.xpath("//div[@class='Dropdown-placeholder']");
-    private static final By dropdownOptionID = By.xpath("//div[@class='Dropdown-option'][text()='сутки']");
-    private static final By colorFieldID = By.xpath("//label[@for='black' and text()='чёрный жемчуг']");
-    private static final By commentFieldID = By.xpath("//input[@type='text' and @class='Input_Input__1iN_Z Input_Responsible__1jDKN' and @placeholder='Комментарий для курьера']");
-    private static final By orderButtonID = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
-    private static final By agreeButtonID = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
+    private static final By DELIVERY_DATE_FIELD_ID = By.cssSelector("[placeholder='* Когда привезти самокат']");
+    private static final By RENT_TIME_FIELD_ID = By.xpath("//div[@class='Dropdown-placeholder']");
+    private static final By DROPDOWN_OPTION_ID = By.xpath("//div[@class='Dropdown-option'][text()='сутки']");
+    private static final By COLOR_FIELD_ID = By.xpath("//label[@for='black' and text()='чёрный жемчуг']");
+    private static final By COMMENT_FIELD_ID = By.xpath("//input[@type='text' and @class='Input_Input__1iN_Z Input_Responsible__1jDKN' and @placeholder='Комментарий для курьера']");
+    private static final By ORDER_BUTTON_ID = By.xpath("/html/body/div/div/div[2]/div[3]/button[2]");
+    private static final By AGREE_BUTTON_ID = By.xpath("/html/body/div/div/div[2]/div[5]/div[2]/button[2]");
+    private final WebDriver webDriver;
 
+    public OrderSecondForm(WebDriver webDriver){
+        this.webDriver = webDriver;
+    }
     //задаю методы к локаторам
 
-    public static void deliveryDateFieldAndSendKeys(WebDriver webDriver, String date) {
-        WebElement deliveryDateField = webDriver.findElement(deliveryDateFieldID);
+    public void setDeliveryDate(String date) {
+        WebElement deliveryDateField = webDriver.findElement(DELIVERY_DATE_FIELD_ID);
         deliveryDateField.sendKeys(date);
         deliveryDateField.sendKeys(Keys.ENTER);
     }
-    public static void rentTimeFieldAndSendKeys(WebDriver webDriver) {
-        WebElement rentTimeField = webDriver.findElement(rentTimeFieldID);
+    public void setRentTime() {
+        WebElement rentTimeField = webDriver.findElement(RENT_TIME_FIELD_ID);
         rentTimeField.click();
-    }
-    public static void dropdownOptionAndSendKeys(WebDriver webDriver) {
-        WebElement dropdownOption = webDriver.findElement(dropdownOptionID);
+        WebElement dropdownOption = webDriver.findElement(DROPDOWN_OPTION_ID);
         dropdownOption.click();
     }
-    public static void colorFieldAndSendKeys(WebDriver webDriver) {
-        WebElement colorField = webDriver.findElement(colorFieldID);
+    public void selectScooterColor() {
+        WebElement colorField = webDriver.findElement(COLOR_FIELD_ID);
         colorField.click();
     }
-    public static void commentFieldAndClick(WebDriver webDriver, String comment) {
-        WebElement commentField = webDriver.findElement(commentFieldID);
+    public void setComment(String comment) {
+        WebElement commentField = webDriver.findElement(COMMENT_FIELD_ID);
         commentField.sendKeys(comment);
     }
-    public static void orderButtonAndClick(WebDriver webDriver) {
-        WebElement orderButton = webDriver.findElement(orderButtonID);
+    public void order() {
+        WebElement orderPanel = webDriver.findElement(By.className("Order_Content__bmtHS"));
+        WebElement orderButton = orderPanel.findElement(ORDER_BUTTON_ID);
         orderButton.click();
     }
-    public static void agreeButton(WebDriver webDriver) {
-        WebElement agreeButton = webDriver.findElement(agreeButtonID);
+    public void confirm() {
+        WebElement confirmPanel = webDriver.findElement(By.className("Order_Modal__YZ-d3"));
+        WebElement agreeButton = confirmPanel.findElement(AGREE_BUTTON_ID);
         agreeButton.click();
     }
 }
