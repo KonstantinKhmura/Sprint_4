@@ -2,6 +2,7 @@ package ru.qascooter.praktikumservices.pageobject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import static org.junit.Assert.assertTrue;
 
 public class OrderFirstForm {
     //задаю локаторы
@@ -50,5 +51,12 @@ public class OrderFirstForm {
         WebElement nextButton = webDriver.findElement(NEXT_BUTTON_ID);
         nextButton.click();
     }
-
+    public void secondFormIsDisplayed(){
+        var isDisplayed = webDriver.findElement(By.className("Order_Form__17u6u")).isDisplayed(); //получаем свойство isDisplayed
+        assertTrue("Элемент не отображается", isDisplayed); //проверяем, что открылась следующая страница и отображается форма заказа
+    }
+    public void checkFirstFormIsOpen(){
+        var isSecondDisplayed = webDriver.findElement(By.className("Order_Header__BZXOb")).isDisplayed(); //получаем свойство isDisplayed
+        assertTrue("Элемент не отображается", isSecondDisplayed); //проверили
+    }
 }
