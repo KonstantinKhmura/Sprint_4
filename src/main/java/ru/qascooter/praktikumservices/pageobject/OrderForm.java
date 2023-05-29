@@ -5,9 +5,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-public class OrderSecondForm {
+public class OrderForm {
     //задаю локаторы
     private static final By DELIVERY_DATE_FIELD_ID = By.cssSelector("[placeholder='* Когда привезти самокат']");
     private static final By RENT_TIME_FIELD_ID = By.className("Dropdown-placeholder");
@@ -16,13 +15,14 @@ public class OrderSecondForm {
     private static final By COMMENT_FIELD_ID = By.cssSelector("input[placeholder='Комментарий для курьера']");
     private static final By ORDER_BUTTON_ID = By.xpath("//div[2]/div[3]/button[2]"); //сократил. поиск по другим элементам не находит эту кнопку из-за наличия другой кнопки "Заказать" на странице и кнопки "Назад"
     private static final By AGREE_BUTTON_ID = By.xpath("//button[text()='Да']");
+    private static final By ORDER_COMPLETE_ID = By.className("Order_ModalHeader__3FDaJ");
     private final WebDriver webDriver;
 
-    public OrderSecondForm(WebDriver webDriver){
+    public OrderForm(WebDriver webDriver){
         this.webDriver = webDriver;
     }
-    //задаю методы к локаторам
 
+    //задаю методы к локаторам
     public void setDeliveryDate(String date) {
         WebElement deliveryDateField = webDriver.findElement(DELIVERY_DATE_FIELD_ID);
         deliveryDateField.sendKeys(date);
@@ -43,21 +43,15 @@ public class OrderSecondForm {
         commentField.sendKeys(comment);
     }
     public void order() {
-        WebElement orderPanel = webDriver.findElement(By.className("Order_Buttons__1xGrp"));
-        WebElement orderButton = orderPanel.findElement(ORDER_BUTTON_ID);
+        WebElement orderButton = webDriver.findElement(ORDER_BUTTON_ID);
         orderButton.click();
     }
     public void confirm() {
-        WebElement confirmPanel = webDriver.findElement(By.className("Order_Modal__YZ-d3"));
-        WebElement agreeButton = confirmPanel.findElement(AGREE_BUTTON_ID);
+        WebElement agreeButton = webDriver.findElement(AGREE_BUTTON_ID);
         agreeButton.click();
     }
-    public void checkConfirmPageIsOpen(){
-        var isDisplayed = webDriver.findElement(By.className("Order_Form__17u6u")).isDisplayed(); //получаем свойство isDisplayed
-        assertTrue("Элемент не отображается", isDisplayed); //проверяем, что открылась следующая страница и отображается форма заказа
-    }
     public void checkOrderIsComplete(){
-        var confirmTextElement = webDriver.findElement(By.className("Order_Text__2broi")); //нашли элемент "Заказ оформлен"
+        var confirmTextElement = webDriver.findElement(ORDER_COMPLETE_ID); //нашли элемент "Заказ оформлен. Заменил локатор в "Заказ оформлен". Был неверный
         var confirmText = confirmTextElement.getText(); //получаем текст
         assertEquals("Текст не соответствует ожидаемому", "Заказ оформлен", confirmText); //проверили, что заказ Оформлен
     }
